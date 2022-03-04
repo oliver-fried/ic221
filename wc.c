@@ -84,12 +84,16 @@ int main(int argc, char *argv[]){
 
                     totalArray = readFromFile(argv[f], f);
 
-                    printInfo(argv[f], totalArray, f, flags, cflag, wflag, lflag);
+                    if(totalArray != 0) {
+                    
+                        printInfo(argv[f], totalArray, f, flags, cflag, wflag, lflag);
 
-                    totalChars += totalArray[0];
-                    totalWords += totalArray[1];
-                    totalLines += totalArray[2];
-                    free(totalArray);
+                        totalChars += totalArray[0];
+                        totalWords += totalArray[1];
+                        totalLines += totalArray[2];
+                        free(totalArray);
+
+                    }
                 }
 
             }
@@ -181,7 +185,10 @@ int * readFromFile(char argv[], int n) {
 
     FILE * infile = fopen(argv, "r");
     
-
+    if(infile == NULL) {
+        fprintf(stderr, "ERROR: file %s cannot be opened\n", argv);
+        return 0;
+    }
 
     int charTotal = 0;
     int lineTotal = 0;
